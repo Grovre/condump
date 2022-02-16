@@ -1,0 +1,2 @@
+GitHubOAuthToken: "tokenhere" # Your OAuth token with access to repos
+RepoPath: "githubName/repoName" # Your repo path in the form of username/reponame
