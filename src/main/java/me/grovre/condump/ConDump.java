@@ -1,13 +1,13 @@
 package me.grovre.condump;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 public final class ConDump extends JavaPlugin {
 
     public static ConDump plugin;
+    public static FileConfiguration config;
 
     public static ConDump getPlugin() {
         return plugin;
@@ -21,14 +21,17 @@ public final class ConDump extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        plugin = this;
-
         saveDefaultConfig();
+        plugin = this;
+        config = getConfig();
 
         // Makes sure the config.yml exists because this plugin won't work without it
-        if(!(new File(getDataFolder().getAbsolutePath() + "/config.yml").exists())) {
-            System.out.println("Config is being generated. Once done, please edit it!");
-            setEnabled(false);
+        if(config.getString("GitHubOAuthToken").equals("tokenhere")
+        || config.getString("RepoPath").equals("githubName/repoName"))
+        {
+            System.out.println("Please change the config located at " + config.getCurrentPath() + "!");
+            System.out.println(getName() + " will be disabled until the changes are made.");
+            getServer().getPluginManager().disablePlugin(this);
         }
 
         // Command EXECUTIONATOR!
