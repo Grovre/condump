@@ -57,7 +57,7 @@ public class ConWipeCommand implements CommandExecutor {
 
         // This is where the logs begin being wiped
         System.out.println("Attempting to wipe latest.log...");
-        File log = new File(Bukkit.getWorldContainer().getAbsolutePath() + File.separator + "logs" + File.separator + "latest.logs");
+        File log = new File(Bukkit.getWorldContainer().getAbsolutePath() + File.separator + "logs" + File.separator + "latest.log");
         System.out.println("latest.log is at " + log.getAbsolutePath());
 
         // Tries to make an non-appending file writer and write to latest.log with nothing, wiping it
@@ -74,12 +74,6 @@ public class ConWipeCommand implements CommandExecutor {
             System.out.println(Ghub.errorMessage);
             return true;
         }
-
-        // Success message
-        if(player != null) {
-            player.sendMessage("Successfully created repo commit and wiped log.");
-        }
-        System.out.println("Successfully created repo commit and wiped log.");
 
         return true;
     }
