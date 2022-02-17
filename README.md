@@ -14,9 +14,21 @@ I'm not responsible for you spamming /condump and then receiving an email from G
 # usage
 To use, just put the jar in your server plugins folder.
 Run the server, and edit the config afterwards with a repo and the OAuth token of the repo's owner.
-You can get your GitHub OAuth token in your GitHub settings in the developer settings tab. Remember to get a new OAuth token if you make it so yours resets every so often.
 
-After that, just run /condump and your server's console will be dumped into that repo. Any errors are from incorrectly setting up the repo.
+Make sure to add the permissions "condump.dump" and "condump.wipe" to your roles. Wiping requires the dump and wipe roles.
+
+You can get your GitHub OAuth token in your GitHub settings in the developer settings tab. Remember to get a new OAuth token if you make it so yours resets every so often.
+After that, just run /condump and your server's console will be dumped into that repo.
+
+# commands
+
+/condump will dump the console log (logs/latest.log) into the designated GitHub repo in the config.
+
+/conwipe will run /condump and then wipe the latest.log file. Should dumping fail, wiping will not continue. This may not be used much but it's nice to have for niche moments.
+
+# errors
+
+Any errors are from incorrectly setting up the repo or config.
 If this happens:
 
 Try to make a new repo but add a file with anything in it. Doesn't matter what's in it. For some reason, GitHub stopped some of my requests because of an empty repo.
