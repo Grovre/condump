@@ -40,7 +40,7 @@ public class ConWipeCommand implements CommandExecutor {
             }
         } catch (Exception e) {
             if(player != null) {
-                if(player.hasPermission("condump.dump")) {
+                if(!player.hasPermission("condump.dump")) {
                     player.sendMessage(ChatColor.RED + "You don't have permission to dump the console, therefore no permission to wipe it!");
                     return true;
                 }
@@ -53,12 +53,6 @@ public class ConWipeCommand implements CommandExecutor {
             System.out.println(Ghub.errorMessage);
             return true;
         }
-
-        // Messages the player who executed /condump and the console about the new commit with the link for viewing
-        if(player != null) {
-            player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
-        }
-        System.out.println("Commit is at: " + Ghub.lastCreatedCommitUrl);
 
         // This is where the logs begin being wiped
         System.out.println("Attempting to wipe latest.log...");
