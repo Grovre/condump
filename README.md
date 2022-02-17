@@ -21,7 +21,7 @@ If this happens:
 
 Try to make a new repo but add a file with anything in it. Doesn't matter what's in it. For some reason, GitHub stopped some of my requests because of an empty repo.
 
-Make sure the OAuth token is correct.
+Make sure the OAuth token is correct, especially if you're getting a bad credentials error.
 
 Make sure the token belongs to the repo owner.
 
