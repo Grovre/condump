@@ -1,6 +1,7 @@
-package me.grovre.condump;
+package me.grovre.condump.commands;
 
 import com.google.common.io.Files;
+import me.grovre.condump.Ghub;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

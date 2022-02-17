@@ -1,5 +1,6 @@
 package me.grovre.condump;
 
+import me.grovre.condump.commands.ConDumpCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
