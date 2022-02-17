@@ -18,7 +18,11 @@ You can get your GitHub OAuth token in your GitHub settings in the developer set
 
 After that, just run /condump and your server's console will be dumped into that repo. Any errors are from incorrectly setting up the repo.
 If this happens:
+
 Try to make a new repo but add a file with anything in it. Doesn't matter what's in it. For some reason, GitHub stopped some of my requests because of an empty repo.
+
 Make sure the OAuth token is correct.
+
 Make sure the token belongs to the repo owner.
+
 Make sure your server is allowed to access GitHub, as in a firewall doesn't prevent it or anything.
