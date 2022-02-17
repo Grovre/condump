@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 public class Ghub {
 
     public static String lastCreatedCommitUrl;
+    public static String errorMessage = "Please make a GitHub issue here: https://github.com/Grovre/condump/issues";
+
 
     public static void commitToLogRepo(String log) throws IOException {
         // Gets config

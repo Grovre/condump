@@ -1,6 +1,7 @@
-package me.grovre.condump;
+package me.grovre.condump.commands;
 
 import com.google.common.io.Files;
+import me.grovre.condump.Ghub;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -19,21 +20,35 @@ public class ConDumpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        Player player = (Player) sender;
+        // Makes player null and if the sender is an instance of player, sets player to sender
+        Player player = null;
+        if(sender instanceof Player) {
+            player = (Player) sender;
+        }
 
         // Makes sure player has permissions
-        if(!player.hasPermission("condump.dump")) {
-            System.out.println(ChatColor.RED + "You don't have permission to dump the most recent console log.");
+        if(player != null && !player.hasPermission("condump.dump")) {
+            player.sendMessage(ChatColor.RED + "You don't have permission to dump the most recent console log.");
             return true;
         }
         // Tries to get the latest logs as a string, line breaks and all
         try {
             Ghub.commitToLogRepo(getLatestLogString());
         } catch (IOException e) {
+            if(player != null) {
+                player.sendMessage(Ghub.errorMessage);
+            }
+            System.out.println("Failed to commit to repo.");
             e.printStackTrace();
+            System.out.println(Ghub.errorMessage);
+            return true;
         }
+
         // Messages the player who executed /condump and the console about the new commit with the link for viewing
-        player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
+        // Success message
+        if(player != null) {
+            player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
+        }
         System.out.println("Commit is at: " + Ghub.lastCreatedCommitUrl);
         return true;
     }
@@ -55,6 +70,7 @@ public class ConDumpCommand implements CommandExecutor {
         } catch (IOException e) {
             System.out.println("Cannot dump. Read lines failed.");
             e.printStackTrace();
+            System.out.println(Ghub.errorMessage);
         }
 
         // With all log lines in a new list, goes through and puts them all back together, trimming them
