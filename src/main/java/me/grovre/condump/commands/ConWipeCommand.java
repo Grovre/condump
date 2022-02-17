@@ -38,6 +38,7 @@ public class ConWipeCommand implements CommandExecutor {
             } else {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "condump");
             }
+            // Checks for bad permissions, otherwise prints a stack trace
         } catch (Exception e) {
             if(player != null) {
                 if(!player.hasPermission("condump.dump")) {
