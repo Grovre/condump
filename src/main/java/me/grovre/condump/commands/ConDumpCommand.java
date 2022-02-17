@@ -20,10 +20,13 @@ public class ConDumpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        Player player = (Player) sender;
+        Player player = null;
+        if(sender instanceof Player) {
+            player = (Player) sender;
+        }
 
         // Makes sure player has permissions
-        if(!player.hasPermission("condump.dump")) {
+        if(player != null && !player.hasPermission("condump.dump")) {
             System.out.println(ChatColor.RED + "You don't have permission to dump the most recent console log.");
             return true;
         }
@@ -34,7 +37,9 @@ public class ConDumpCommand implements CommandExecutor {
             e.printStackTrace();
         }
         // Messages the player who executed /condump and the console about the new commit with the link for viewing
-        player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
+        if(player != null) {
+            player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
+        }
         System.out.println("Commit is at: " + Ghub.lastCreatedCommitUrl);
         return true;
     }
