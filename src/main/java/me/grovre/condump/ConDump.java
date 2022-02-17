@@ -1,6 +1,7 @@
 package me.grovre.condump;
 
 import me.grovre.condump.commands.ConDumpCommand;
+import me.grovre.condump.commands.ConWipeCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -21,6 +22,7 @@ public final class ConDump extends JavaPlugin {
     /*
     Permissions:
     condump.dump
+    condump.wipe
      */
 
     @Override
@@ -29,6 +31,12 @@ public final class ConDump extends JavaPlugin {
         saveDefaultConfig();
         plugin = this;
         config = getConfig();
+
+        // Command hashmap with commands and CommandExecutor
+        HashMap<String, CommandExecutor> commands = new HashMap<>();
+        // New commands here, no /
+        commands.put("condump", new ConDumpCommand());
+        commands.put("conwipe", new ConWipeCommand());
 
         // Makes sure the config.yml exists because this plugin won't work without it
         try {
@@ -54,12 +62,6 @@ public final class ConDump extends JavaPlugin {
         // Command EXECUTIONATOR(s)!
         // Makes sure setExecutor doesn't return null for whatever reason. No clue why it would but...
         try {
-            // Hashmap with commands and CommandExecutor
-            HashMap<String, CommandExecutor> commands = new HashMap<>();
-
-            // New commands here, no /
-            commands.put("condump", new ConDumpCommand());
-
             // Registers the command executor
             for(String command : commands.keySet()) {
                 CommandExecutor cmdExec = commands.get(command); // CommandExecutor, file of command
@@ -71,7 +73,7 @@ public final class ConDump extends JavaPlugin {
         } catch (NullPointerException e) {
             System.out.println("A con executor was null? Disabling plugin to avoid further errors.");
             e.printStackTrace();
-            System.out.println("Please make a GitHub issue here: https://github.com/Grovre/condump/issues");
+            System.out.println(Ghub.errorMessage);
             System.out.println("The plugin will be disabled to prevent further errors.");
             getServer().getPluginManager().disablePlugin(this);
         }

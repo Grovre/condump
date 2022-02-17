@@ -9,3 +9,6 @@ commands:
   condump:
     description: Dumps latest.log to the repo designated in condump's config
     usage: /<command>
+  conwipe:
+    description: Runs condump and then wipes current.log
+    usage: /<command>

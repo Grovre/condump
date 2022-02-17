@@ -20,6 +20,7 @@ public class ConDumpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
+        // Makes player null and if the sender is an instance of player, sets player to sender
         Player player = null;
         if(sender instanceof Player) {
             player = (Player) sender;
@@ -27,16 +28,24 @@ public class ConDumpCommand implements CommandExecutor {
 
         // Makes sure player has permissions
         if(player != null && !player.hasPermission("condump.dump")) {
-            System.out.println(ChatColor.RED + "You don't have permission to dump the most recent console log.");
+            player.sendMessage(ChatColor.RED + "You don't have permission to dump the most recent console log.");
             return true;
         }
         // Tries to get the latest logs as a string, line breaks and all
         try {
             Ghub.commitToLogRepo(getLatestLogString());
         } catch (IOException e) {
+            if(player != null) {
+                player.sendMessage(Ghub.errorMessage);
+            }
+            System.out.println("Failed to commit to repo.");
             e.printStackTrace();
+            System.out.println(Ghub.errorMessage);
+            return true;
         }
+
         // Messages the player who executed /condump and the console about the new commit with the link for viewing
+        // Success message
         if(player != null) {
             player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
         }
@@ -61,6 +70,7 @@ public class ConDumpCommand implements CommandExecutor {
         } catch (IOException e) {
             System.out.println("Cannot dump. Read lines failed.");
             e.printStackTrace();
+            System.out.println(Ghub.errorMessage);
         }
 
         // With all log lines in a new list, goes through and puts them all back together, trimming them
