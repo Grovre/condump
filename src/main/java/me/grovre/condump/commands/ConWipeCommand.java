@@ -68,7 +68,7 @@ public class ConWipeCommand implements CommandExecutor {
         // Tries to make an non-appending file writer and write to latest.log with nothing, wiping it
         try {
             Writer fr = new FileWriter(log, false);
-            fr.write("");
+            fr.write("WIPED. Wiped content can be found at " + Ghub.lastCreatedCommitUrl);
             fr.close();
         } catch (IOException e) {
             if(player != null) {
