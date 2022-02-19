@@ -62,7 +62,7 @@ public final class ConDump extends JavaPlugin {
         // Command EXECUTIONATOR(s)!
         // Makes sure setExecutor doesn't return null for whatever reason. No clue why it would but...
         try {
-            // Registers the command executor
+            // Registers the command executors
             for(String command : commands.keySet()) {
                 CommandExecutor cmdExec = commands.get(command); // CommandExecutor, file of command
                 PluginCommand pluginCmd = getServer().getPluginCommand(command); // Plugin command, registers the actual command
