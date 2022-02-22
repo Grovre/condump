@@ -15,6 +15,7 @@ import java.io.Writer;
 
 public class ConWipeCommand implements CommandExecutor {
 
+    // TODO make it clear a repo instead
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {

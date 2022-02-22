@@ -19,12 +19,12 @@ public class Ghub {
         FileConfiguration config = ConDump.getPlugin().getConfig();
 
         // Sets repo and OAuth token to what's in the config
-        String gistToken = config.getString("GitHubOAuthToken");
+        String oauthToken = config.getString("GitHubOAuthToken");
         String repoPath = config.getString("RepoPath");
         String fileName = "Console log from " + LocalDateTime.now();
 
         // Begins building the repo content using token and repo
-        GitHub github = new GitHubBuilder().withOAuthToken(gistToken).build();
+        GitHub github = new GitHubBuilder().withOAuthToken(oauthToken).build();
         GHRepository repo = github.getRepository(repoPath);
         repo.createContent()
                 .content(log)
@@ -35,5 +35,16 @@ public class Ghub {
         // On success, saves the url to a static variable that can be accessed from anywhere. OOP can suck it
         System.out.println("Repo commit success, creating link...");
         lastCreatedCommitUrl = ("https://github.com/" + repoPath + "/blob/main/" + fileName).replaceAll(" ", "%20");
+    }
+
+    @Deprecated
+    public static void clearLogRepo() throws IOException {
+        FileConfiguration config = ConDump.getPlugin().getConfig();
+        // Sets repo and OAuth token to what's in the config
+        String oauthToken = config.getString("GitHubOAuthToken");
+        String repoPath = config.getString("RepoPath");
+
+        GitHub github = new GitHubBuilder().withOAuthToken(oauthToken).build();
+
     }
 }
