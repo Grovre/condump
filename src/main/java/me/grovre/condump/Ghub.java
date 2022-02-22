@@ -1,6 +1,7 @@
 package me.grovre.condump;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
@@ -45,6 +46,8 @@ public class Ghub {
         String repoPath = config.getString("RepoPath");
 
         GitHub github = new GitHubBuilder().withOAuthToken(oauthToken).build();
-
+        GHRepository repo = github.getRepository(repoPath);
+        GHPullRequest pr = repo.createPullRequest("Clear PR", "", repo.getDefaultBranch(), "Cleaned repo", true);
+        pr.merge("Wiping repo");
     }
 }
