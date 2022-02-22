@@ -1,17 +1,12 @@
 package me.grovre.condump.commands;
 
 import me.grovre.condump.Ghub;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 
 public class ConWipeCommand implements CommandExecutor {
 
@@ -28,8 +23,15 @@ public class ConWipeCommand implements CommandExecutor {
             return true;
         }
 
+        long timeTaken = 0;
         try {
+            long start = System.currentTimeMillis();
             Ghub.clearLogRepo();
+            long end = System.currentTimeMillis();
+            timeTaken = end - start;
+            System.out.println("Repo successfully cleared in " + timeTaken / 1000.0 + " seconds " +
+                    "(" + timeTaken + "ms)");
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Failed to wipe repo.");
@@ -38,7 +40,8 @@ public class ConWipeCommand implements CommandExecutor {
         }
 
         if(player != null) {
-            player.sendMessage("Repo successfully cleared");
+            player.sendMessage("Repo successfully cleared in " + timeTaken / 1000.0 + " seconds " +
+                    "(" + timeTaken + "ms)");
         }
         return true;
     }
