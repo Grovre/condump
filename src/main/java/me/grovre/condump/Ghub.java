@@ -44,7 +44,6 @@ public class Ghub {
 
         GitHub github = new GitHubBuilder().withOAuthToken(oauthToken).build();
         GHRepository repo = github.getRepository(repoPath);
-        GHPullRequest pr = repo.createPullRequest("Clear PR", "Grovre:Salad", repo.getDefaultBranch(), "Cleaned repo", true);
         List<GHContent> content = repo.getDirectoryContent(repoPath);
         content.forEach(c -> {
             try {
