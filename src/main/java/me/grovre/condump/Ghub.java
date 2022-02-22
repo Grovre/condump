@@ -1,13 +1,11 @@
 package me.grovre.condump;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.kohsuke.github.GHPullRequest;
-import org.kohsuke.github.GHRepository;
-import org.kohsuke.github.GitHub;
-import org.kohsuke.github.GitHubBuilder;
+import org.kohsuke.github.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Ghub {
 
@@ -46,7 +44,14 @@ public class Ghub {
 
         GitHub github = new GitHubBuilder().withOAuthToken(oauthToken).build();
         GHRepository repo = github.getRepository(repoPath);
-        GHPullRequest pr = repo.createPullRequest("Clear PR", "Salad", repo.getDefaultBranch(), "Cleaned repo", true);
-        pr.merge("Wiping repo");
+        GHPullRequest pr = repo.createPullRequest("Clear PR", "Grovre:Salad", repo.getDefaultBranch(), "Cleaned repo", true);
+        List<GHContent> content = repo.getDirectoryContent(repoPath);
+        content.forEach(c -> {
+            try {
+                c.delete("Wipe Repo");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
