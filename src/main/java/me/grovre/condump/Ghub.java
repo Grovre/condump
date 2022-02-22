@@ -52,5 +52,6 @@ public class Ghub {
                 e.printStackTrace();
             }
         });
+        System.out.println("Repo successfully cleared at https://github.com/ " + repoPath);
     }
 }
