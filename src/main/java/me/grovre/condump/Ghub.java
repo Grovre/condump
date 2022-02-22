@@ -38,7 +38,6 @@ public class Ghub {
         lastCreatedCommitUrl = ("https://github.com/" + repoPath + "/blob/main/" + fileName).replaceAll(" ", "%20");
     }
 
-    @Deprecated
     public static void clearLogRepo() throws IOException {
         FileConfiguration config = ConDump.getPlugin().getConfig();
         // Sets repo and OAuth token to what's in the config
@@ -47,7 +46,7 @@ public class Ghub {
 
         GitHub github = new GitHubBuilder().withOAuthToken(oauthToken).build();
         GHRepository repo = github.getRepository(repoPath);
-        GHPullRequest pr = repo.createPullRequest("Clear PR", "", repo.getDefaultBranch(), "Cleaned repo", true);
+        GHPullRequest pr = repo.createPullRequest("Clear PR", "Salad", repo.getDefaultBranch(), "Cleaned repo", true);
         pr.merge("Wiping repo");
     }
 }
