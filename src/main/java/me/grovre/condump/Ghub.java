@@ -44,7 +44,7 @@ public class Ghub {
 
         GitHub github = new GitHubBuilder().withOAuthToken(oauthToken).build();
         GHRepository repo = github.getRepository(repoPath);
-        List<GHContent> content = repo.getDirectoryContent(repoPath);
+        List<GHContent> content = repo.getDirectoryContent("");
         content.forEach(c -> {
             try {
                 c.delete("Wipe Repo");
