@@ -34,8 +34,12 @@ public class ConWipeCommand implements CommandExecutor {
             e.printStackTrace();
             System.out.println("Failed to wipe repo.");
             System.out.println(Ghub.errorMessage);
+            return true;
         }
 
+        if(player != null) {
+            player.sendMessage("Repo successfully cleared");
+        }
         return true;
     }
 }
