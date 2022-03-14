@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +19,13 @@ public class ConDumpCommand implements CommandExecutor {
 
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NonNull CommandSender sender,
+                             @NonNull Command command,
+                             @NonNull String label,
+                             @NonNull String[] args) {
 
         // Makes player null and if the sender is an instance of player, sets player to sender
-        Player player = null;
-        if(sender instanceof Player) {
-            player = (Player) sender;
-        }
+        Player player = sender instanceof Player ? (Player) sender : null;
 
         // Makes sure player has permissions
         if(player != null && !player.hasPermission("condump.dump")) {

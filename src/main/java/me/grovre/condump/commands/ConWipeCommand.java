@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.IOException;
 
@@ -13,7 +14,10 @@ public class ConWipeCommand implements CommandExecutor {
     // TODO make it clear a repo instead
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(@NonNull CommandSender commandSender,
+                             @NonNull Command command,
+                             @NonNull String s,
+                             @NonNull String[] strings) {
 
         // Makes player null and if the sender is an instance of a player, reassigns player to the sender
         Player player = commandSender instanceof Player ? (Player) commandSender : null;
@@ -23,7 +27,7 @@ public class ConWipeCommand implements CommandExecutor {
             return true;
         }
 
-        long timeTaken = 0;
+        long timeTaken;
         try {
             long start = System.currentTimeMillis();
             Ghub.clearLogRepo();
