@@ -1,6 +1,9 @@
 package me.grovre.condump.commands;
 
+import me.grovre.condump.ConDump;
 import me.grovre.condump.Ghub;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,29 +27,36 @@ public class ConWipeCommand implements CommandExecutor {
 
         // Makes sure the player has permission
         if(player != null && !player.hasPermission("condump.wipe")) {
+            player.sendMessage(ChatColor.RED + "You don't have permission to wipe.");
             return true;
         }
 
-        long timeTaken;
-        try {
-            long start = System.currentTimeMillis();
-            Ghub.clearLogRepo();
-            long end = System.currentTimeMillis();
-            timeTaken = end - start;
-            System.out.println("Repo successfully cleared in " + timeTaken / 1000.0 + " seconds " +
-                    "(" + timeTaken + "ms)");
+        Bukkit.getScheduler().runTaskAsynchronously(ConDump.getPlugin(), () -> {
+            boolean failFlag = false;
+            
+            long timeTaken = 0;
+            try {
+                long start = System.currentTimeMillis();
+                Ghub.clearLogRepo();
+                long end = System.currentTimeMillis();
+                timeTaken = end - start;
+                System.out.println("Repo successfully cleared in " + timeTaken / 1000D + " seconds " +
+                        "(" + timeTaken + "ms)");
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed to wipe repo.");
-            System.out.println(Ghub.errorMessage);
-            return true;
-        }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Failed to wipe repo.");
+                System.out.println(Ghub.errorMessage);
+                failFlag = true;
+            }
+            if(failFlag) return;
 
-        if(player != null) {
-            player.sendMessage("Repo successfully cleared in " + timeTaken / 1000.0 + " seconds " +
-                    "(" + timeTaken + "ms)");
-        }
+            if (player != null) {
+                player.sendMessage("Repo successfully cleared in " + timeTaken / 1000D + " seconds " +
+                        "(" + timeTaken + "ms)");
+            }
+        });
+        
         return true;
     }
 }

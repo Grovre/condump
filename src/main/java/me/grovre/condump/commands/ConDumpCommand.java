@@ -1,6 +1,7 @@
 package me.grovre.condump.commands;
 
 import com.google.common.io.Files;
+import me.grovre.condump.ConDump;
 import me.grovre.condump.Ghub;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -32,25 +33,32 @@ public class ConDumpCommand implements CommandExecutor {
             player.sendMessage(ChatColor.RED + "You don't have permission to dump the most recent console log.");
             return true;
         }
-        // Tries to get the latest logs as a string, line breaks and all
-        try {
-            Ghub.commitToLogRepo(getLatestLogString());
-        } catch (IOException e) {
-            if(player != null) {
-                player.sendMessage(Ghub.errorMessage);
-            }
-            System.out.println("Failed to commit to repo.");
-            e.printStackTrace();
-            System.out.println(Ghub.errorMessage);
-            return true;
-        }
 
-        // Messages the player who executed /condump and the console about the new commit with the link for viewing
-        // Success message
-        if(player != null) {
-            player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
-        }
-        System.out.println("Commit is at: " + Ghub.lastCreatedCommitUrl);
+        Bukkit.getScheduler().runTaskAsynchronously(ConDump.getPlugin(), () -> {
+            boolean failFlag = false;
+
+            // Tries to get the latest logs as a string, line breaks and all
+            try {
+                Ghub.commitToLogRepo(getLatestLogString());
+            } catch (IOException e) {
+                if (player != null) {
+                    player.sendMessage(Ghub.errorMessage);
+                }
+                System.out.println("Failed to commit to repo.");
+                e.printStackTrace();
+                System.out.println(Ghub.errorMessage);
+                failFlag = true;
+            }
+            if(failFlag) return;
+
+            // Messages the player who executed /condump and the console about the new commit with the link for viewing
+            // Success message
+            if (player != null) {
+                player.sendMessage("Commit is at: " + Ghub.lastCreatedCommitUrl);
+            }
+            System.out.println("Commit is at: " + Ghub.lastCreatedCommitUrl);
+        });
+
         return true;
     }
 
