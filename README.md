@@ -11,6 +11,9 @@ https://docs.github.com/en/github/site-policy/github-terms-of-service#h-api-term
 
 I'm not responsible for you spamming /condump and then receiving an email from GitHub, or anything else that you do but if there are issues, please create one on the GitHub from the link above
 
+# Perms
+Make sure to add the permissions "condump.dump" and "condump.wipe" to your roles. Wiping requires the dump and wipe roles.
+
 # usage
 To use, just put the jar in your server plugins folder.
 Run the server, and edit the config afterwards with a repo and the OAuth token of the repo's owner.
@@ -24,7 +27,7 @@ After that, just run /condump and your server's console will be dumped into that
 
 /condump will dump the console log (logs/latest.log) into the designated GitHub repo in the config.
 
-/conwipe will run /condump and then wipe the latest.log file. Should dumping fail, wiping will not continue. This may not be used much but it's nice to have for niche moments.
+/conwipe will clear the designated GitHub repo of all files.
 
 # errors
 
