@@ -14,7 +14,7 @@ I'm not responsible for you spamming /condump and then receiving an email from G
 # Perms
 Make sure to add the permissions "condump.dump" and "condump.wipe" to your roles. Wiping requires the dump and wipe roles.
 
-# usage
+# Usage
 To use, just put the jar in your server plugins folder.
 Run the server, and edit the config afterwards with a repo and the OAuth token of the repo's owner.
 
@@ -23,13 +23,13 @@ Make sure to add the permissions "condump.dump" and "condump.wipe" to your roles
 You can get your GitHub OAuth token in your GitHub settings in the developer settings tab. Remember to get a new OAuth token if you make it so yours resets every so often.
 After that, just run /condump and your server's console will be dumped into that repo.
 
-# commands
+# Commands
 
 /condump will dump the console log (logs/latest.log) into the designated GitHub repo in the config.
 
 /conwipe will clear the designated GitHub repo of all files.
 
-# errors
+# Errors
 
 Any errors are from incorrectly setting up the repo or config.
 If this happens:
