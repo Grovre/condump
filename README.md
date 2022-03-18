@@ -1,7 +1,7 @@
 # condump
 Dumps the latest console logs from your latest.log file in logs folder to your designated GitHub repo by using the owner's OAuth token and the GitHub API.
 
-Here's a video of it in use:
+Here's a video of it in use (1.0):
 https://youtu.be/vCH9S-FcMaQ
 
 The plugin is open source as are pretty much all of my other plugins, it's also on GitHub as you're reading
