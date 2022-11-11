@@ -49,6 +49,7 @@ public class Ghub {
             try {
                 c.delete("Wipe Repo");
             } catch (IOException e) {
+                System.out.println("Failed to delete " + c.getName() + " from the Github repo");
                 e.printStackTrace();
             }
         });
