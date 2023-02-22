@@ -39,7 +39,7 @@ public class ConDumpCommand implements CommandExecutor {
 
             // Tries to get the latest logs as a string, line breaks and all
             try {
-                Ghub.commitToLogRepo(getLatestLogString());
+                Ghub.commitToLogRepo(getLatestLogAsString());
             } catch (IOException e) {
                 if (player != null) {
                     player.sendMessage(Ghub.errorMessage);
@@ -62,16 +62,16 @@ public class ConDumpCommand implements CommandExecutor {
         return true;
     }
 
-    public File getLatestLog() {
+    public File getLatestLogFile() {
         // Sets f = latest.log, or what the console is currently outputting to
         File f = new File(Bukkit.getWorldContainer().getAbsolutePath() + File.separator + "logs" + File.separator + "latest.log");
         System.out.println("Latest log file is at " + f.getAbsolutePath());
         return f;
     }
 
-    public String getLatestLogString() {
+    public String getLatestLogAsString() {
         // Sets f = Server/logs/latest.log
-        File f = getLatestLog();
+        File f = getLatestLogFile();
         // Gets all lines of the log as a list (thanks Google)
         List<String> allLogLines = null;
         try {

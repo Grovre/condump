@@ -2,7 +2,6 @@ package me.grovre.condump;
 
 import me.grovre.condump.commands.ConDumpCommand;
 import me.grovre.condump.commands.ConWipeCommand;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -46,7 +45,7 @@ public final class ConDump extends JavaPlugin {
             assert repoPath != null;
 
             // If the OAuth token or repopath in config are the default values
-            if (oauthToken.equals("tokenhere") || repoPath.equals("githubName/repoName")) {
+            if (oauthToken.equalsIgnoreCase("tokenhere") || repoPath.equalsIgnoreCase("githubName/repoName")) {
                 System.out.println("Please change the config located at " + config.getCurrentPath() + "!");
                 System.out.println(getName() + " will be disabled until the changes are made.");
                 getServer().getPluginManager().disablePlugin(this);
@@ -82,7 +81,6 @@ public final class ConDump extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        // Always dumps console to repo on shutdown, just cuz
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "condump");
+     // Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "condump"); // Throws an error, disabled plugins can't use commands
     }
 }
