@@ -1,10 +1,9 @@
 name: ConDump
 version: '${project.version}'
 main: me.grovre.condump.ConDump
-api-version: 1.19
+api-version: 1.20
 authors: [ PoptartFromPluto ]
 description: Pastes a link to the console log to anybody who calls the method.
-website: https://github.com/grovre
 commands:
   condump:
     description: Dumps latest.log to the repo designated in condump's config
